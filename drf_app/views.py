@@ -38,3 +38,23 @@ def createview(request):
     else:
         resp = {'msg':'its a get request'}
         return JsonResponse(resp)
+
+@csrf_exempt
+def updateview(request):
+    """
+    to update the value of object
+    """
+    if request.method == "PUT":
+        try:
+            stu_data = JSONParser().parse(request)
+            id = stu_data.get("id")
+            stu = Student.objects.get(id=id)
+            serializer = StudentSerializer(stu,data=stu_data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({"msg":"updated"})
+        except Exception as e:
+            return JsonResponse({"error":"something wrong in query"})
+    else:
+        return JsonResponse({"msg":" its a GET request"})
+
