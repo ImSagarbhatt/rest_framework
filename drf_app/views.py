@@ -58,3 +58,22 @@ def updateview(request):
     else:
         return JsonResponse({"msg":" its a GET request"})
 
+
+@csrf_exempt
+def deleteview(request):
+    """
+    delete the object
+    """
+    if request.method =="DELETE":
+        try:
+            stu_data = JSONParser().parse(request)
+            id = stu_data.get("id")
+            stu = Student.objects.get(id=id)
+            stu.delete()
+            return JsonResponse({"msg":"Deleted successfully"})
+        except Exception:
+            return JsonResponse({"msg":"Object not found!!"})
+    else:
+        return JsonResponse({"msg":" Its a GET request!!"})
+
+

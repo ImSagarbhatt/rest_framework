@@ -6,5 +6,6 @@ urlpatterns = [
     path('<int:pk>', views.detailview, name='oneobject'),
     path('create/', views.createview, name='create'),
     path('update/', views.updateview, name='update'),
+    path('delete/', views.deleteview, name='delete'),
 
 ]
